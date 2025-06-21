@@ -1,20 +1,41 @@
 <ion-header [translucent]="true">
   <ion-toolbar>
     <ion-title>
-      Blank
+      Galería de Imágenes
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
+<ion-content [fullscreen]="true" class="ion-padding">
   <ion-header collapse="condense">
     <ion-toolbar>
-      <ion-title size="large">Blank</ion-title>
+      <ion-title size="large">Galería de Imágenes</ion-title>
     </ion-toolbar>
   </ion-header>
+  <ion-item>
+    <ion-select label="Filtrar por categoría" placeholder="Selecciona una categoría" [(ngModel)]="selectedCategory" (ionChange)="filteredImages()" interface="popover" (ngModelChange) = selectedCategory.set($event)>
+      <ion-select-option value="Naturaleza">Naturaleza</ion-select-option>
+      <ion-select-option value="Animales">Animales</ion-select-option>
+      <ion-select-option value="Ciudades">Ciudades</ion-select-option>
+      <ion-select-option value="Tecnologia">Tecnología</ion-select-option>
+    </ion-select>
+  </ion-item>
 
   <div id="container">
-    <strong>Ready to create an app?</strong>
-    <p>Start with Ionic <a target="_blank" rel="noopener noreferrer" href="https://ionicframework.com/docs/components">UI Components</a></p>
+    <ion-grid class="ion-margin-top">
+      <ion-row>
+        @for (imagen of filteredImages(); track imagen.id){
+          <ion-col size="6" size-md="4" size-lg="3">
+            <ion-card>
+              <img [src]="imagen.url" alt="{{imagen.titulo}}">
+            </ion-card>
+            <ion-card-header>
+              <ion-card-title>{{imagen.titulo}}</ion-card-title>
+            </ion-card-header>
+          </ion-col>
+        }
+      </ion-row>
+    </ion-grid>
+
   </div>
 </ion-content>
